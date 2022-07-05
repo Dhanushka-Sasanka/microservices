@@ -12,6 +12,10 @@ public class Constants {
     public static final String SUCCESS_MASSAGE = "ADDED SUCCESS";
     public static final String GET_MESSAGE = "LOAD SUCCESS";
 
+    /*SERVICE NAMES*/
+    public static final String HTTP_PROTOCOL = "http://";
+    public static final String DEPARTMENT_SERVICE = "DEPARTMENT-SERVICE";
+
 
 }
 

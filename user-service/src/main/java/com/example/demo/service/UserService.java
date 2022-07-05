@@ -3,7 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.APIResponse;
 import com.example.demo.entity.Users;
 import com.example.demo.repo.UserRepo;
-import com.example.demo.vo.Department;
+import com.example.demo.util.Constants;
 import com.example.demo.vo.ResponseTemplateVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +39,17 @@ public class UserService {
         APIResponse apiResponse;
         Optional<Users> userById = userRepo.findById(userID);
         users = userById.orElse(null);
-        log.info("DepartmentID : {}",userById.get().getDepartmentID());
-        /*apiResponse = restTemplate.getForObject("http://localhost:9002/department/departments/" +
+        log.info("DepartmentID : {}", userById.get().getDepartmentID());
+        /*
+        *   apiResponse = restTemplate.getForObject("http://localhost:9002/department/departments/" +
                        userById.get().getDepartmentID(),
                APIResponse.class);*/
         apiResponse = userById.map(value ->
-            restTemplate.getForObject("http://localhost:9002/department/departments/" +
-                            value.getDepartmentID(),
-                APIResponse.class)).orElse(null);
+                restTemplate.getForObject(Constants.HTTP_PROTOCOL
+                                .concat(Constants.DEPARTMENT_SERVICE)
+                                .concat("/department/departments/")
+                                .concat(value.getDepartmentID()),
+                        APIResponse.class)).orElse(null);
 
 
         assert apiResponse != null;
