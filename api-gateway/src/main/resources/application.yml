@@ -1,0 +1,28 @@
+eureka:
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+  instance:
+    hostname: localhost
+server:
+  port: 9191
+spring:
+  application:
+    name: API-GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/users/**
+        - id: department-service
+          uri: lb://DEPARTMENT-SERVICE
+          predicates:
+            - Path=/department/**
+
+      discovery:
+        locator:
+          enabled: true
