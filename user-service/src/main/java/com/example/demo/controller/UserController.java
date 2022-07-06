@@ -46,6 +46,11 @@ public class UserController {
 
     @GetMapping("/users/{userID}")
     public APIResponse getAllUserDetailsByUserID(@PathVariable("userID") Long userID){
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ResponseTemplateVO allUsers = userService.getAllUserDetailsByUserID(userID);
         return APIResponse.builder()
                 .responseCode(Constants.SUCCESS_CODE)
